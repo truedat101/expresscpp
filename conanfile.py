@@ -1,9 +1,11 @@
 
 #!/usr/bin/env python
 
-from conans import ConanFile, CMake
-import subprocess
+from conan import ConanFile
+
+# import subprocess
 import json
+from conan.tools.cmake import cmake_layout, CMake
 
 class ExpressCpp(ConanFile):
     name = "expresscpp"
@@ -20,7 +22,8 @@ class ExpressCpp(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {"shared": False, "fPIC": True}
-    generators = ["cmake", "cmake_find_package", "cmake_paths"]
+    # generators = ["cmake", "cmake_find_package", "cmake_paths","CMakeToolchain", "CMakeDeps"]
+    generators = "CMakeToolchain", "CMakeDeps"
     exports_sources = "CMakeLists.txt", "cmake/*", "src/*", "include/*", "conanfile.txt", "package.json"
 
     def build(self):
@@ -30,9 +33,12 @@ class ExpressCpp(ConanFile):
         cmake.build()
 
     def requirements(self):
-        self.requires.add("boost/1.72.0")
-        self.requires.add("fmt/6.1.2")
-        self.requires.add("nlohmann_json/3.7.3")
+        self.requires("boost/1.84.0")
+        self.requires("fmt/6.2.1")
+        self.requires("nlohmann_json/3.7.3")
+    
+    def build_requirements(self):
+        self.tool_requires("cmake/3.22.6")
 
     def package(self):
         self.copy("*.hpp", src=".")
@@ -44,3 +50,5 @@ class ExpressCpp(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = ["expresscpp"]
+    def layout(self):
+        cmake_layout(self)

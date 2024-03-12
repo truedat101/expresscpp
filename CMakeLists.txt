@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.22)
 
 project(expresscpp LANGUAGES CXX)
-
+message("compiler features: ${CMAKE_CXX_COMPILE_FEATURES}")
 file(
   STRINGS 
   package.json  
