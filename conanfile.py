@@ -24,7 +24,7 @@ class ExpressCpp(ConanFile):
     default_options = {"shared": False, "fPIC": True}
     # generators = ["cmake", "cmake_find_package", "cmake_paths","CMakeToolchain", "CMakeDeps"]
     generators = "CMakeToolchain", "CMakeDeps"
-    exports_sources = "CMakeLists.txt", "cmake/*", "src/*", "include/*", "conanfile.txt", "package.json"
+    exports_sources = "CMakeLists.txt", "cmake/*", "src/*", "include/*", "conanfile.py", "package.json"
 
     def build(self):
         cmake = CMake(self)

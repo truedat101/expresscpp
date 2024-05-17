@@ -124,7 +124,7 @@ if(EXPRESSCPP_USE_CONAN_DEPENDENCIES)
   message(STATUS "using conan dependencies")
   include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/conan.cmake)
   conan_cmake_run(CONANFILE
-                  conanfile.txt
+                  conanfile.py
                   BASIC_SETUP
                   BUILD
                   missing)
