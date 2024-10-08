@@ -42,13 +42,11 @@ int main() {
 This is being turned into a learning tool to provide a non-trivial boost + cmake + conan2 example.  Nearly all of the conan provided example repos are toy level in complexity and trivial.  They don't ever address a real project example.  Most of the boost examples I found were between 4-10 years old and were on old conan 1.x, using a conanfile.txt, or were of toy level complexity.   Since boost is the biggest pain in the *** to compile and configure, it is the acid test for cross compiling and portability. It's just headers right?  No, it is more and its build is non-standard.  So my goal was to take a fork of espresscpp (which is interesting on its own, though unmaintained) and make it work in modern 2024 era.  There  is some work to cleanup the conanfile.py.  Some of the dependencies might be super old in the cpp side.  But it appears to compile for raspi5 if you follow the cross compiler steps below.
 
 
-## Using me
+## Using
 
-### conan
+### conan2
 
-```bash
-conan remote add expresscpp https://api.bintray.com/conan/expresscpp/expresscpp/
-```
+TODO: Rewrite this section for conan2.
 
 add this to you conan file:
 
@@ -87,6 +85,15 @@ find_package(expresscpp)
 # ...
 target_link_libraries(my_target PRIVATE expresscpp::expresscpp)
 ```
+
+## Simplified Build
+
+Note: Because of a bug in Conan2 (technically the poor conan 1.x community is the bug), the feature that allows cmake to "conan_cmake_run()" command is in the appropriately named "cmake" generator, which no longer exists.
+
+mkdir -p build && cd build
+conan install .. --build=missing --profile:build default
+source ./Release/generators/conanbuild.sh
+cmake .. -DCMAKE_TOOLCHAIN_FILE=Release/generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
 
 ## Build instructions (e.g. ubuntu)
 
