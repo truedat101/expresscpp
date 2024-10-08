@@ -90,10 +90,13 @@ target_link_libraries(my_target PRIVATE expresscpp::expresscpp)
 
 Note: Because of a bug in Conan2 (technically the poor conan 1.x community is the bug), the feature that allows cmake to "conan_cmake_run()" command is in the appropriately named "cmake" generator, which no longer exists.
 
+```
 mkdir -p build && cd build
 conan install .. --build=missing --profile:build default
 source ./Release/generators/conanbuild.sh
 cmake .. -DCMAKE_TOOLCHAIN_FILE=Release/generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+make
+```
 
 ## Build instructions (e.g. ubuntu)
 
